@@ -1,4 +1,15 @@
-//Enemy class that returns an enemy object
+/**
+  * @desc This file contains pseudoclassical classes that are required for the game to function
+  * @author Karanbir Kajal
+*/
+
+/**
+  * @desc Enemy class that returns an enemy object
+  * @param Number locX - x axis position parameter of canvas
+  * @param Number locY - y axis position parameter of canvas
+  * @param Number speed - the speed by which an enemy bug moves
+  * @return object - an enemy bug
+*/
 var Enemy = function(locX, locY, speed) {
     this.sprite = 'images/enemy-bug.png';
     this.x = locX;
@@ -6,12 +17,7 @@ var Enemy = function(locX, locY, speed) {
     this.speed = speed;
 };
 
-//All instances of Enemy class will have
-//the following methods present inside
-//Enemy.prototype
-
-//Method-1: Updates enemy's position based on its speed
-//Also handles collision (method-3)
+//Updates enemy's position based on its speed and handles collision of player with enemy bug
 Enemy.prototype.update = function(dt) {
     this.x = this.x + dt*this.speed;
     if(this.x > 500){
@@ -20,13 +26,12 @@ Enemy.prototype.update = function(dt) {
     this.handleCollision();
 };
 
-// Method-2: Renders the enemy on screen
+//Renders the enemy on screen
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//Method-3: Resets player positoin on collision between enemy and player
-//Player's winning streak is also reset to 0
+//Resets player positoin on collision with enemy and sets player's winning streak to 0
 Enemy.prototype.handleCollision = function(){
     if(this.y == player.y){
         if(this.x > (player.x -80) && this.x < (player.x + 80) ){
@@ -35,23 +40,25 @@ Enemy.prototype.handleCollision = function(){
             document.getElementById('streak').innerHTML = player.streak;
         }
     }
-}
+};
 
-//Player class with an additional 'streak' member
-//streak gets incremented by 1 on successive victories
-// Once the player collides, streak resets to 0
+/**
+  * @desc Player class that returns a player object
+  * @param Number locX - x axis position parameter of canvas
+  * @param Number locY - y axis position parameter of canvas
+  * @return object - aplayer
+*/
 var Player = function(locX, locY){
     this.sprite = 'images/char-boy.png';
     this.x = locX;
     this.y = locY;
-    this.streak = 0; //additional functionality that shows winning streak
-}
+    this.streak = 0;
+};
 
-//Enemy's render function is shared with all instances of Player
-//Separate function not needed
+//Enemy's render function is shared with all instances of Player. Separate function not needed
 Player.prototype = Object.create(Enemy.prototype); 
 
-//Resets player position on reaching water
+//Resets player position on reaching water body
 Player.prototype.update = function(){
     if(this.y == -10){
         this.resetPlayer();
@@ -60,8 +67,7 @@ Player.prototype.update = function(){
     }
 };
 
-//Changes player position based on user interaction
-//Also limits the player within canvas border
+//Changes player position based on user interaction and limits the player within canvas border
 Player.prototype.handleInput = function(key){
     switch(key){
         case 'up': 
@@ -98,9 +104,7 @@ Player.prototype.change = function(thisObj){
     this.sprite = $(thisObj).attr('src');
 };
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+
 var player = new Player(200,405);
 var allEnemies = [];
 var bug1 = new Enemy(0, 73, 110);
@@ -108,8 +112,6 @@ var bug2 = new Enemy(0, 156, 50);
 var bug3 = new Enemy(0, 239, 175);
 allEnemies.push(bug1, bug2, bug3);
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
