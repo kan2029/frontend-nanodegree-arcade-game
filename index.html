@@ -4,10 +4,36 @@
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- Included bootstrap for modal windows -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 <body>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
+    <section>
+    	<label>Streak: <span id="streak">0</span></label><br>
+    	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#change-character">Change character</button>
+    </section>
+	<section id="change-character" class="modal fade" role="dialog">
+	  <section class="modal-dialog">
+	    <section class="modal-content">
+	      <section class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Pick a character</h4>
+	      </section>
+	      <section class="modal-body">
+	        <img class="char-image" src="images/char-boy.png" onclick="player.change(this);">
+	        <img class="char-image" src="images/char-cat-girl.png" onclick="player.change(this);">
+	        <img class="char-image" src="images/char-horn-girl.png" onclick="player.change(this);">
+	        <img class="char-image" src="images/char-pink-girl.png" onclick="player.change(this);">
+	        <img class="char-image" src="images/char-princess-girl.png" onclick="player.change(this);">
+	      </section>
+	    </section>
+
+	  </section>
+	</section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>

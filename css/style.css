@@ -1,3 +1,8 @@
 body {
     text-align: center;
 }
+
+.char-image:hover{
+	cursor: pointer;
+	border: 2px solid #ddd;
+}
